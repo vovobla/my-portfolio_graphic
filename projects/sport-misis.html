@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СПОРТ МИСИС — Владимир Волков</title>
+    <style>
+        body {
+            background-color: #f4f7ff;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #000;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            cursor: none; 
+        }
+
+        /* Навигация */
+        .nav-bar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 32px 30px; 
+            position: fixed; 
+            top: 0;
+            z-index: 1000;
+            box-sizing: border-box;
+            mix-blend-mode: difference;
+        }
+
+        .nav-bar a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 400;
+            cursor: none !important;
+        }
+
+        /* Контент */
+        .case-content {
+            width: 100%;
+            max-width: 940px;
+            margin-top: 160px;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .case-hero-title {
+            font-size: clamp(50px, 8vw, 120px);
+            font-weight: 600;
+            letter-spacing: -4px;
+            margin: 0 0 60px 0;
+            line-height: 0.9;
+            text-transform: uppercase;
+        }
+
+        .case-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .info-block {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-text {
+            font-size: 20px;
+            line-height: 1.3;
+            font-weight: 500;
+        }
+
+        /* Сетка визуалов */
+        .visuals {
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
+            padding-bottom: 150px;
+        }
+
+        .visual-item {
+            width: 100%;
+        }
+
+        .visual-item img, .visual-item video {
+            width: 100%;
+            border-radius: 32px;
+            display: block;
+            background-color: #fff;
+        }
+
+        .visual-caption {
+            margin-top: 24px;
+            font-size: 18px;
+            color: rgba(0, 0, 0, 0.5);
+            line-height: 1.4;
+            max-width: 700px;
+        }
+
+        .caption-title {
+            display: block;
+            color: #000;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        /* Стили для сравнения До/После */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .as-is-image {
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Кастомный курсор */
+        #custom-cursor {
+            position: fixed;
+            width: 20px; height: 20px;
+            background-color: #000;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 0; left: 0;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+                        height 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+                        border-radius 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            white-space: nowrap; overflow: hidden;
+        }
+
+        #cursor-text {
+            color: #fff; font-size: 15px; opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .cursor-active { height: 40px !important; border-radius: 32px !important; }
+        .cursor-active #cursor-text { opacity: 1; }
+
+        @media (max-width: 768px) {
+            .case-info { grid-template-columns: 1fr; }
+            .case-hero-title { letter-spacing: -2px; }
+            .comparison-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor"><span id="cursor-text">Перейти</span></div>
+
+    <div class="nav-bar">
+        <a href="../index.html" class="nav-target">Владимир Волков</a>
+        <a href="https://t.me/vovobla" class="nav-target">Связаться</a>
+    </div>
+
+    <main class="case-content">
+        <h1 class="case-hero-title">СПОРТ МИСИС</h1>
+
+        <div class="case-info">
+            <div class="info-block">
+                <span class="info-label">Задача</span>
+                <p class="info-text">Обновить визуальную систему Telegram-канала кафедры спорта НИТУ МИСИС: сформировать единый стиль, повысить читаемость и создать узнаваемый образ</p>
+            </div>
+            <div class="info-block">
+                <span class="info-label">Год</span>
+                <p class="info-text">2025</p>
+            </div>
+        </div>
+
+        <section class="visuals">
+            
+            <div class="visual-item">
+                <div class="comparison-grid">
+                    <div>
+                        <span class="info-label" style="margin-bottom: 12px; display: block;">As Is (До)</span>
+                        <img src="../assets/sport/old-state.png" alt="Старый дизайн" class="as-is-image">
+                    </div>
+                    <div>
+                        <span class="info-label" style="margin-bottom: 12px; display: block;">To Be (После)</span>
+                        <img src="../assets/sport/new-state.png" alt="Новый дизайн">
+                    </div>
+                </div>
+                <p class="visual-caption">
+                    <span class="caption-title">Рестайлинг канала</span>
+                    Комплексное обновление визуальной среды: от хаотичной подачи к упорядоченному брендингу
+                </p>
+            </div>
+
+            <hr style="width: 100%; border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 20px 0;">
+
+            <div class="visual-item">
+                <img src="../assets/sport/avatars.png" alt="Аватарки канала">
+                <p class="visual-caption">
+                    <span class="caption-title">Аватарки профиля</span>
+                    Система логотипов: основной знак и набор сезонных вариаций для поддержания актуальности контента
+                </p>
+            </div>
+
+            <div class="visual-item">
+                <img src="../assets/sport/posts.png" alt="Шаблоны постов">
+                <p class="visual-caption">
+                    <span class="caption-title">Дизайн публикаций</span>
+                    Разработка типовых решений для постов: информационные карточки и динамичные макеты для анонсов соревнований
+                </p>
+            </div>
+
+            <div class="visual-item">
+                <img src="../assets/sport/emoji.png" alt="Анимационные эмодзи">
+                <p class="visual-caption">
+                    <span class="caption-title">Эмодзи-пак</span>
+                    Набор кастомных анимированных реакций, обеспечивающий визуальную целостность публикаций. Позволяет брендировать текстовый контент в единый стиль
+                </p>
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        const cursor = document.getElementById('custom-cursor');
+        const cursorText = document.getElementById('cursor-text');
+        const navTargets = document.querySelectorAll('.nav-target');
+        const caseImgTargets = document.querySelectorAll('.case-img-target');
+
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+        });
+
+        function animate() {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Логика для ссылок навигации
+        navTargets.forEach(t => {
+            t.addEventListener('mouseenter', () => {
+                cursorText.textContent = "Перейти";
+                cursor.style.width = "100px";
+                cursor.classList.add('cursor-active');
+            });
+            t.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor-active');
+                cursor.style.width = "20px";
+            });
+        });
+
+        // Логика для изображений кейса
+        caseImgTargets.forEach(t => {
+            t.addEventListener('mouseenter', () => {
+                cursorText.textContent = "К кейсу >";
+                cursor.style.width = "120px";
+                cursor.classList.add('cursor-active');
+            });
+            t.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor-active');
+                cursor.style.width = "20px";
+            });
+        });
+    </script>
+</body>
+</html>

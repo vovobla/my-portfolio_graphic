@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Владимир Волков</title>
+    <style>
+        body {
+            background-color: #f4f7ff;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #000;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            cursor: none; 
+        }
+
+        /* Блокировка дефолтного курсора */
+        a, button, .case, .nav-target, .nav-bar a {
+            cursor: none !important;
+        }
+
+        .nav-bar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 32px 30px; 
+            position: fixed; 
+            top: 0;
+            z-index: 1000;
+            box-sizing: border-box;
+            mix-blend-mode: difference;
+        }
+
+        .nav-bar a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 120px;
+            width: 100%;
+        }
+
+        .header-main-row {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 24px; 
+            margin-bottom: 40px;
+        }
+
+        .profile-frame {
+            width: 280px; 
+            height: 360px;
+            border-radius: 32px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            background-color: #eee;
+            flex-shrink: 0;
+        }
+
+        .profile-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-col {
+            width: 320px; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .left-col {
+            text-align: right;
+            justify-content: flex-start;
+            padding-top: 8px;
+        }
+
+        .right-col {
+            text-align: left;
+            justify-content: flex-end;
+            padding-bottom: 8px;
+        }
+
+        .text-50 {
+            color: rgba(0, 0, 0, 0.4);
+            font-size: 20px;
+            font-weight: 400;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .text-100 {
+            color: rgba(0, 0, 0, 1);
+            font-size: 20px;
+            font-weight: 500;
+            margin: 0;
+            line-height: 1.1;
+            display: inline-block;
+        }
+
+        .tg-link {
+            text-decoration: none;
+            border-bottom: 1.5px solid #000;
+            padding-bottom: 1px;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .status-pill {
+            margin-top: 32px;
+            padding: 10px 24px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 100px;
+            font-size: 13px;
+            background-color: white;
+            display: inline-block;
+        }
+
+        /* Кейсы */
+        .cases {
+            width: 100%;
+            max-width: 940px; 
+            margin-top: 100px;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .case {
+            margin-bottom: 120px;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+        .case-preview {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            border-radius: 32px; 
+            overflow: hidden;
+            background-color: #fff;
+            margin-bottom: 24px;
+            transition: transform 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .case:hover .case-preview {
+            transform: scale(0.98);
+        }
+
+        .case-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.2, 1, 0.2, 1);
+            display: block;
+        }
+
+        .case:hover .case-preview img {
+            transform: scale(1.06);
+        }
+
+        .case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .case-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .case-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .case-name {
+            font-size: 22px;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .case-year {
+            font-size: 18px;
+            color: rgba(0, 0, 0, 1);
+            font-weight: 500;
+        }
+
+        .case-description {
+            font-size: 18px;
+            line-height: 1.4;
+            color: rgba(0, 0, 0, 0.8);
+            max-width: 800px;
+            margin: 0;
+        }
+
+        /* КАСТОМНЫЙ КУРСОР */
+        #custom-cursor {
+            position: fixed;
+            width: 20px; 
+            height: 20px;
+            background-color: #000;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            
+            transition: 
+                width 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+                height 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+                border-radius 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                
+            white-space: nowrap; 
+            overflow: hidden;
+        }
+
+        #cursor-text {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 400;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        /* Активное состояние */
+        .cursor-active {
+            height: 40px !important;
+            border-radius: 32px !important;
+            padding: 0 0px;
+        }
+
+        .cursor-active #cursor-text {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor">
+        <span id="cursor-text">перейти</span>
+    </div>
+
+    <div class="nav-bar">
+        <a href="index.html" class="nav-target">Владимир Волков</a>
+        <a href="https://t.me/vovobla" class="nav-target">Связаться</a>
+    </div>
+
+    <header>
+        <div class="header-main-row">
+            <div class="hero-col left-col">
+                <p class="text-50">Привет, меня зовут</p>
+                <p class="text-100">Владимир Волков</p>
+            </div>
+            <div class="profile-frame">
+                <img src="assets/profile.jpg" alt="Владимир Волков">
+            </div>
+            <div class="hero-col right-col">
+                <p class="text-100">Я графический дизайнер,</p>
+                <p class="text-50">разрабатывающий визуальные системы для брендов и событий</p>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <p class="text-50">Связаться можно <a href="https://t.me/vovobla" class="tg-link nav-target">в телеграме</a></p>
+        </div>
+        <div class="status-pill">
+            Актуально на весну 2026-го года
+        </div>
+    </header>
+
+    <div class="cases">
+        <a href="projects/bezumhack.html" class="case">
+            <div class="case-preview case-img-target">
+                <img src="assets/bezum-mockup.png" alt="bezumHack">
+            </div>
+            <div class="case-header">
+                <div class="case-title-wrapper">
+                    <img src="assets/bezum-logo.svg" class="case-icon" alt="Logo">
+                    <span class="case-name">БЕЗУМhack</span>
+                </div>
+                <span class="case-year">2026</span>
+            </div>
+            <p class="case-description">Обновил визуальную систему хакатона «БЕЗУМhack»</p>
+        </a>
+
+        <a href="projects/sport-misis.html" class="case">
+            <div class="case-preview case-img-target">
+                <img src="assets/sport-mockup.png" alt="Sport MISIS">
+            </div>
+            <div class="case-header">
+                <div class="case-title-wrapper">
+                    <img src="assets/sport-logo.svg" class="case-icon" alt="Logo">
+                    <span class="case-name">СПОРТ МИСИС</span>
+                </div>
+                <span class="case-year">2025</span>
+            </div>
+            <p class="case-description">Обновил визуальную систему Telegram-канала кафедры спорта НИТУ МИСИС</p>
+        </a>
+
+        <a href="projects/itam.html" class="case">
+            <div class="case-preview case-img-target">
+                <img src="assets/itam-mockup.png" alt="itam">
+            </div>
+            <div class="case-header">
+                <div class="case-title-wrapper">
+                    <img src="assets/itam-logo.svg" class="case-icon" alt="Logo">
+                    <span class="case-name">ITAM Courses</span>
+                </div>
+                <span class="case-year">2025</span>
+            </div>
+            <p class="case-description">Разработал мерч, дипломы и сертификаты для образовательной программы ITAM Courses и хакатона ITAM Courses Hack</p>
+        </a>
+
+        <a href="projects/damn.html" class="case">
+            <div class="case-preview case-img-target">
+                <img src="assets/damn-mockup.png" alt="damn">
+            </div>
+            <div class="case-header">
+                <div class="case-title-wrapper">
+                    <img src="assets/damn-logo.svg" class="case-icon" alt="Logo">
+                    <span class="case-name">DAMN (Design At MISIS Now)</span>
+                </div>
+                <span class="case-year">2025 — н.в.</span>
+            </div>
+            <p class="case-description">Создаю мерч, стикеры и визуальные материалы для соцсетей, а также оформляю digital-баннеры для спикеров платформы ITAM</p>
+        </a>
+
+        <a href="projects/presentations.html" class="case">
+            <div class="case-preview case-img-target">
+                <img src="assets/presentation-mockup.png" alt="presentation">
+            </div>
+            <div class="case-header">
+                <div class="case-title-wrapper">
+                    <span class="case-name">Презентации</span>
+                </div>
+            </div>
+            <p class="case-description">Коллекция работ с хакатонов и мероприятий</p>
+        </a>
+    </div>
+
+    <script>
+        const cursor = document.getElementById('custom-cursor');
+        const cursorText = document.getElementById('cursor-text');
+        
+        const navTargets = document.querySelectorAll('.nav-target');
+        const caseImgTargets = document.querySelectorAll('.case-img-target');
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animate() {
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Логика для кнопок ("перейти")
+        navTargets.forEach(t => {
+            t.addEventListener('mouseenter', () => {
+                cursorText.textContent = "Перейти";
+                cursor.style.width = "100px";
+                cursor.classList.add('cursor-active');
+            });
+            t.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor-active');
+                cursor.style.width = "20px";
+            });
+        });
+
+        // Логика только для обложек ("к кейсу >")
+        caseImgTargets.forEach(t => {
+            t.addEventListener('mouseenter', () => {
+                cursorText.textContent = "К кейсу >";
+                cursor.style.width = "120px";
+                cursor.classList.add('cursor-active');
+            });
+            t.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor-active');
+                cursor.style.width = "20px";
+            });
+        });
+
+        document.addEventListener('mouseleave', () => {
+            cursor.classList.remove('cursor-active');
+            cursor.style.width = "20px";
+        });
+    </script>
+</body>
+</html>
